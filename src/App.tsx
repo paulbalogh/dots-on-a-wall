@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import type { WallConfig, Dot as DotType } from './types'
 import { getValidPositions, getTotalGridDots } from './lib/grid'
 import { randomizeDots } from './lib/randomize'
@@ -44,6 +44,54 @@ function App() {
     []
   )
 
+  const canvasContainerRef = useRef<HTMLDivElement>(null)
+  const maxWidthRef = useRef(1200)
+  const [canvasWidth, setCanvasWidth] = useState(600)
+
+  const hasInitializedWidth = useRef(false)
+  useEffect(() => {
+    const el = canvasContainerRef.current
+    if (!el) return
+    const observer = new ResizeObserver((entries) => {
+      const { width } = entries[0]?.contentRect ?? { width: 1200 }
+      const w = Math.max(100, Math.floor(width))
+      maxWidthRef.current = w
+      if (!hasInitializedWidth.current) {
+        hasInitializedWidth.current = true
+        setCanvasWidth(w)
+      }
+    })
+    observer.observe(el)
+    const w = Math.max(100, Math.floor(el.getBoundingClientRect().width))
+    maxWidthRef.current = w
+    if (!hasInitializedWidth.current) {
+      hasInitializedWidth.current = true
+      setCanvasWidth(w)
+    }
+    return () => observer.disconnect()
+  }, [])
+
+  const handleResizeStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    const startX = e.clientX
+    const startWidth = canvasWidth
+    const onMove = (moveEvent: MouseEvent) => {
+      const delta = moveEvent.clientX - startX
+      const newWidth = Math.max(100, Math.min(maxWidthRef.current, startWidth + delta))
+      setCanvasWidth(newWidth)
+    }
+    const onUp = () => {
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+    document.body.style.cursor = 'nwse-resize'
+    document.body.style.userSelect = 'none'
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  }, [canvasWidth])
+
   return (
     <div className="app">
       <header>
@@ -60,12 +108,28 @@ function App() {
           />
         </aside>
         <section className="output">
-          <WallCanvas
-            config={config}
-            dots={dots}
-            widthPx={600}
-            onBlackoutChange={config.blackout ? handleBlackoutChange : undefined}
-          />
+          <div ref={canvasContainerRef} className="canvas-container">
+            <div
+              className="canvas-wrapper"
+              style={{
+                width: canvasWidth,
+                height: (canvasWidth * config.wallHeightCm) / config.wallWidthCm,
+              }}
+            >
+              <WallCanvas
+                config={config}
+                dots={dots}
+                widthPx={canvasWidth}
+                onBlackoutChange={config.blackout ? handleBlackoutChange : undefined}
+              />
+              <button
+                type="button"
+                className="canvas-resize-handle"
+                aria-label="Resize canvas"
+                onMouseDown={handleResizeStart}
+              />
+            </div>
+          </div>
           <div className="table-section">
             <h3>Coordinates (x, y in cm)</h3>
             <CoordinatesTable dots={dots} />

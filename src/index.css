@@ -68,6 +68,49 @@ body {
   gap: 1.5rem;
 }
 
+.canvas-container {
+  width: 100%;
+  min-width: 0;
+}
+
+.canvas-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.canvas-wrapper .wall-canvas {
+  display: block;
+}
+
+.canvas-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: nwse-resize;
+}
+
+.canvas-resize-handle::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  border-radius: 0 0 4px 0;
+}
+
+.canvas-resize-handle:hover::after {
+  border-color: var(--accent);
+}
+
 .controls-panel {
   background: #fff;
   border: 1px solid var(--border);
@@ -191,8 +234,9 @@ body {
 .wall-canvas {
   border: 1px solid var(--border);
   border-radius: 4px;
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  display: block;
 }
 
 .table-section h3 {

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- **Manual canvas resize**: Draggable handle at bottom-right corner to resize the canvas to fit your screen
+
+### Changed
+
+- **Dots**: Standard circles instead of blob shapes (0.5cm radius)
+
 ## [0.1.0] – 2025-03-03
 
 ### Added
