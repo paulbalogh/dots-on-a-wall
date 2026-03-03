@@ -7,8 +7,8 @@ const DEFAULTS: WallConfig = {
   blackout: { xCm: 0, yCm: 170, widthCm: 40, heightCm: 30 },
   borderCloseness: { top: 2, right: 2, bottom: 2, left: 2 },
   onRatio: 0.2,
-  gridVisibility: 0.2,
-  dotColor: '#000000',
+  gridVisibility: 0.05,
+  dotColor: '#c00000',
 }
 
 function parseNum(s: string | null, fallback: number): number {
@@ -76,7 +76,7 @@ export function configToSearchParams(config: WallConfig): URLSearchParams {
 
   params.set('on', String(config.onRatio ?? DEFAULTS.onRatio))
   params.set('grid', String(config.gridVisibility ?? DEFAULTS.gridVisibility))
-  params.set('color', (config.dotColor ?? DEFAULTS.dotColor ?? '#000000').replace(/^#/, ''))
+  params.set('color', (config.dotColor ?? DEFAULTS.dotColor ?? '#c00000').replace(/^#/, ''))
 
   return params
 }

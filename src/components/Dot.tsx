@@ -6,7 +6,7 @@ interface DotProps {
   color?: string
 }
 
-const DOT_RADIUS_CM = 0.5
+const DOT_RADIUS_CM = 1
 
 export function Dot({ dot, scalePxPerCm, color = '#c00' }: DotProps) {
   if (!dot.on) return null

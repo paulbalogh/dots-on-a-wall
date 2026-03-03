@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- **Dots**: Standard circles instead of blob shapes (0.5cm radius)
+- **Dots**: Standard circles instead of blob shapes (2cm diameter)
 
 ## [0.1.0] – 2025-03-03
 

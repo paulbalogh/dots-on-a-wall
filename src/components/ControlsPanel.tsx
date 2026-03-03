@@ -80,10 +80,10 @@ export function ControlsPanel({ config, onChange, onRandomize, validCount, total
             min={0}
             max={1}
             step={0.05}
-            value={config.gridVisibility ?? 0.2}
+            value={config.gridVisibility ?? 0.05}
             onChange={(e) => update({ gridVisibility: parseFloat(e.target.value) })}
           />
-          <span className="slider-value">{Math.round((config.gridVisibility ?? 0.2) * 100)}%</span>
+          <span className="slider-value">{Math.round((config.gridVisibility ?? 0.05) * 100)}%</span>
         </span>
       </label>
 
@@ -92,11 +92,11 @@ export function ControlsPanel({ config, onChange, onRandomize, validCount, total
         <span className="color-picker-row">
           <input
             type="color"
-            value={config.dotColor ?? '#000000'}
+            value={config.dotColor ?? '#c00000'}
             onChange={(e) => update({ dotColor: e.target.value })}
             className="color-input"
           />
-          <span className="color-value">{config.dotColor ?? '#000000'}</span>
+          <span className="color-value">{config.dotColor ?? '#c00000'}</span>
         </span>
       </label>
 

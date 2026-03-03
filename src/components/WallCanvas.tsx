@@ -143,7 +143,7 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
       className="wall-canvas"
     >
       {/* Wall background */}
-      <rect width={widthPx} height={heightPx} fill="#f5f5f0" stroke="#ddd" strokeWidth={1} />
+      <rect width={widthPx} height={heightPx} fill="#f8f8f8" stroke="#ddd" strokeWidth={1} />
 
       {/* Blackout area */}
       {blackout && (
@@ -206,7 +206,7 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
       )}
 
       {/* Grid dots (black, opacity by visibility) */}
-      <g opacity={config.gridVisibility ?? 0.2}>
+      <g opacity={config.gridVisibility ?? 0.05}>
         {gridPositions.map(({ row, col }) => {
           const { xCm, yCm } = positionToCm(row, col, layout)
           const cx = xCm * scalePxPerCm
@@ -228,7 +228,7 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
       {/* Blob dots */}
       <g>
         {dots.map((dot) => (
-          <Dot key={dot.id} dot={dot} scalePxPerCm={scalePxPerCm} color={config.dotColor ?? '#000'} />
+          <Dot key={dot.id} dot={dot} scalePxPerCm={scalePxPerCm} color={config.dotColor ?? '#c00'} />
         ))}
       </g>
     </svg>
