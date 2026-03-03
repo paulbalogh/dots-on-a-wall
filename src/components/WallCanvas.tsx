@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import type { WallConfig, Dot as DotType } from '../types'
 import { getValidPositions, positionToCm, getGridLayout } from '../lib/grid'
+import { getMeasurementGridLines, getMeasurementGridLabels } from '../lib/measurementGrid'
 import { Dot } from './Dot'
 
 interface WallCanvasProps {
@@ -144,6 +145,40 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
     >
       {/* Wall background */}
       <rect width={widthPx} height={heightPx} fill="#f8f8f8" stroke="#ddd" strokeWidth={1} />
+
+      {/* 20×20 cm measurement grid */}
+      <g className="measurement-grid" stroke="#000" strokeWidth={0.5} opacity={config.measurementGridVisibility ?? 0.05}>
+        {getMeasurementGridLines(wallWidthCm, wallHeightCm).vertical.map((x) => (
+          <line
+            key={`v-${x}`}
+            x1={x * scalePxPerCm}
+            y1={0}
+            x2={x * scalePxPerCm}
+            y2={heightPx}
+          />
+        ))}
+        {getMeasurementGridLines(wallWidthCm, wallHeightCm).horizontal.map((y) => (
+          <line
+            key={`h-${y}`}
+            x1={0}
+            y1={y * scalePxPerCm}
+            x2={widthPx}
+            y2={y * scalePxPerCm}
+          />
+        ))}
+      </g>
+      <g className="measurement-grid-labels" fill="#000" fontSize={10} textAnchor="middle" dominantBaseline="middle" opacity={config.measurementGridVisibility ?? 0.05}>
+        {getMeasurementGridLabels(wallWidthCm, wallHeightCm).columns.map(({ x, label }) => (
+          <text key={`col-${label}`} x={x * scalePxPerCm} y={8}>
+            {label}
+          </text>
+        ))}
+        {getMeasurementGridLabels(wallWidthCm, wallHeightCm).rows.map(({ y, label }) => (
+          <text key={`row-${label}`} x={8} y={y * scalePxPerCm}>
+            {label}
+          </text>
+        ))}
+      </g>
 
       {/* Blackout area */}
       {blackout && (

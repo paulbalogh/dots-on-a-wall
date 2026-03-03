@@ -7,10 +7,14 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - **Manual canvas resize**: Draggable handle at bottom-right corner to resize the canvas to fit your screen
+- **Measurement grid**: 20×20 cm cells with chess-style labels (columns A, B, C…; rows 1, 2, 3…)
+- **Measurement grid visibility**: Slider to show/hide the 20×20 cm grid (default 5%, matches dot grid)
 
 ### Changed
 
 - **Dots**: Standard circles instead of blob shapes (2cm diameter)
+- **Coordinates table**: Shows cell (e.g. A3) and position relative to cell top-left (x, y in cm within 20×20 cell)
+- **Dot grid visibility**: Renamed from "Grid visibility"; measurement grid visibility control added
 
 ## [0.1.0] – 2025-03-03
 

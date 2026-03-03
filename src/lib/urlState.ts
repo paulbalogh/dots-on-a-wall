@@ -8,6 +8,7 @@ const DEFAULTS: WallConfig = {
   borderCloseness: { top: 2, right: 2, bottom: 2, left: 2 },
   onRatio: 0.2,
   gridVisibility: 0.05,
+  measurementGridVisibility: 0.05,
   dotColor: '#c00000',
 }
 
@@ -49,6 +50,7 @@ export function searchParamsToConfig(search: string): WallConfig {
     borderCloseness,
     onRatio: parseNum(params.get('on'), DEFAULTS.onRatio!),
     gridVisibility: parseNum(params.get('grid'), DEFAULTS.gridVisibility!),
+    measurementGridVisibility: parseNum(params.get('mgrid'), DEFAULTS.measurementGridVisibility!),
     dotColor: parseHex(params.get('color'), DEFAULTS.dotColor!),
   }
 }
@@ -76,6 +78,7 @@ export function configToSearchParams(config: WallConfig): URLSearchParams {
 
   params.set('on', String(config.onRatio ?? DEFAULTS.onRatio))
   params.set('grid', String(config.gridVisibility ?? DEFAULTS.gridVisibility))
+  params.set('mgrid', String(config.measurementGridVisibility ?? DEFAULTS.measurementGridVisibility))
   params.set('color', (config.dotColor ?? DEFAULTS.dotColor ?? '#c00000').replace(/^#/, ''))
 
   return params

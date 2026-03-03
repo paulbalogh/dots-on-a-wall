@@ -73,7 +73,7 @@ export function ControlsPanel({ config, onChange, onRandomize, validCount, total
       </label>
 
       <label className="slider-row">
-        Grid visibility
+        Dot grid visibility
         <span className="slider-with-value">
           <input
             type="range"
@@ -84,6 +84,21 @@ export function ControlsPanel({ config, onChange, onRandomize, validCount, total
             onChange={(e) => update({ gridVisibility: parseFloat(e.target.value) })}
           />
           <span className="slider-value">{Math.round((config.gridVisibility ?? 0.05) * 100)}%</span>
+        </span>
+      </label>
+
+      <label className="slider-row">
+        Measurement grid visibility
+        <span className="slider-with-value">
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={config.measurementGridVisibility ?? 0.05}
+            onChange={(e) => update({ measurementGridVisibility: parseFloat(e.target.value) })}
+          />
+          <span className="slider-value">{Math.round((config.measurementGridVisibility ?? 0.05) * 100)}%</span>
         </span>
       </label>
 

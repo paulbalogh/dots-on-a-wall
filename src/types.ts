@@ -15,7 +15,8 @@ export interface WallConfig {
     left: number
   }
   onRatio?: number // placed dots ÷ total grid cells (default 0.2 = tighter grid)
-  gridVisibility?: number // 0–1, opacity of underlying grid dots (default 0.05)
+  gridVisibility?: number // 0–1, opacity of dot placement grid (default 0.05)
+  measurementGridVisibility?: number // 0–1, opacity of 20×20 cm measurement grid (default 0.05)
   dotColor?: string // Color of visible dots (default red)
 }
 

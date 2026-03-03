@@ -274,7 +274,15 @@ body {
   background: #f9f9f9;
 }
 
-.coordinates-table td:nth-child(2),
-.coordinates-table td:nth-child(3) {
+.coordinates-table td:nth-child(3),
+.coordinates-table td:nth-child(4) {
   font-variant-numeric: tabular-nums;
+}
+
+.coordinates-table caption {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: left;
+  caption-side: top;
 }
