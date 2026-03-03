@@ -144,10 +144,10 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
       className="wall-canvas"
     >
       {/* Wall background */}
-      <rect width={widthPx} height={heightPx} fill="#f8f8f8" stroke="#ddd" strokeWidth={1} />
+      <rect className="wall-bg" width={widthPx} height={heightPx} strokeWidth={1} />
 
       {/* 20×20 cm measurement grid */}
-      <g className="measurement-grid" stroke="#000" strokeWidth={0.5} opacity={config.measurementGridVisibility ?? 0.05}>
+      <g className="measurement-grid" strokeWidth={0.5} opacity={config.measurementGridVisibility ?? 0.05}>
         {getMeasurementGridLines(wallWidthCm, wallHeightCm).vertical.map((x) => (
           <line
             key={`v-${x}`}
@@ -167,7 +167,7 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
           />
         ))}
       </g>
-      <g className="measurement-grid-labels" fill="#000" fontSize={10} textAnchor="middle" dominantBaseline="middle" opacity={config.measurementGridVisibility ?? 0.05}>
+      <g className="measurement-grid-labels" fontSize={10} textAnchor="middle" dominantBaseline="middle" opacity={config.measurementGridVisibility ?? 0.05}>
         {getMeasurementGridLabels(wallWidthCm, wallHeightCm).columns.map(({ x, label }) => (
           <text key={`col-${label}`} x={x * scalePxPerCm} y={8}>
             {label}
@@ -184,55 +184,50 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
       {blackout && (
         <g>
           <rect
+            className="blackout-rect"
             x={blackout.xCm * scalePxPerCm}
             y={blackout.yCm * scalePxPerCm}
             width={blackout.widthCm * scalePxPerCm}
             height={blackout.heightCm * scalePxPerCm}
-          fill="#2a2a2a"
-          fillOpacity={0.1}
-          stroke="#1a1a1a"
-          strokeOpacity={0.1}
+            fillOpacity={0.1}
+            strokeOpacity={0.1}
             strokeWidth={1}
             style={{ cursor: dragMode ? 'grabbing' : 'grab' }}
             onMouseDown={handleBlackoutMouseDown}
           />
           {/* Resize handles */}
           <circle
+            className="blackout-handle"
             cx={blackout.xCm * scalePxPerCm}
             cy={blackout.yCm * scalePxPerCm}
             r={HANDLE_SIZE_PX / 2}
-            fill="#c0c0c0"
-            stroke="#999"
             strokeWidth={1}
             style={{ cursor: 'nwse-resize' }}
             onMouseDown={(e) => handleResizeMouseDown(e, 'nw')}
           />
           <circle
+            className="blackout-handle"
             cx={(blackout.xCm + blackout.widthCm) * scalePxPerCm}
             cy={blackout.yCm * scalePxPerCm}
             r={HANDLE_SIZE_PX / 2}
-            fill="#c0c0c0"
-            stroke="#999"
             strokeWidth={1}
             style={{ cursor: 'nesw-resize' }}
             onMouseDown={(e) => handleResizeMouseDown(e, 'ne')}
           />
           <circle
+            className="blackout-handle"
             cx={blackout.xCm * scalePxPerCm}
             cy={(blackout.yCm + blackout.heightCm) * scalePxPerCm}
             r={HANDLE_SIZE_PX / 2}
-            fill="#c0c0c0"
-            stroke="#999"
             strokeWidth={1}
             style={{ cursor: 'nesw-resize' }}
             onMouseDown={(e) => handleResizeMouseDown(e, 'sw')}
           />
           <circle
+            className="blackout-handle"
             cx={(blackout.xCm + blackout.widthCm) * scalePxPerCm}
             cy={(blackout.yCm + blackout.heightCm) * scalePxPerCm}
             r={HANDLE_SIZE_PX / 2}
-            fill="#c0c0c0"
-            stroke="#999"
             strokeWidth={1}
             style={{ cursor: 'nwse-resize' }}
             onMouseDown={(e) => handleResizeMouseDown(e, 'se')}
@@ -240,22 +235,15 @@ export function WallCanvas({ config, dots, widthPx = 600, onBlackoutChange }: Wa
         </g>
       )}
 
-      {/* Grid dots (black, opacity by visibility) */}
-      <g opacity={config.gridVisibility ?? 0.05}>
+      {/* Grid dots (opacity by visibility) */}
+      <g className="dot-grid" opacity={config.gridVisibility ?? 0.05}>
         {gridPositions.map(({ row, col }) => {
           const { xCm, yCm } = positionToCm(row, col, layout)
           const cx = xCm * scalePxPerCm
           const cy = yCm * scalePxPerCm
           const r = Math.max(2, scalePxPerCm * 0.5)
           return (
-            <circle
-              key={`${row}-${col}`}
-              cx={cx}
-              cy={cy}
-              r={r}
-              fill="#000"
-              stroke="none"
-            />
+            <circle key={`${row}-${col}`} cx={cx} cy={cy} r={r} stroke="none" />
           )
         })}
       </g>

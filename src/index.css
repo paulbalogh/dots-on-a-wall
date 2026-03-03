@@ -5,6 +5,39 @@
   --border: #ddd;
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
+  --surface: #fff;
+  --surface-alt: #f5f5f5;
+  --surface-hover: #f9f9f9;
+  --canvas-bg: #f8f8f8;
+  --canvas-border: #ddd;
+  --canvas-grid: #000;
+  --blackout-fill: #2a2a2a;
+  --blackout-stroke: #1a1a1a;
+  --handle-fill: #c0c0c0;
+  --handle-stroke: #999;
+  --warning: #b45309;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --bg: #18181b;
+    --border: #3f3f46;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --surface: #27272a;
+    --surface-alt: #3f3f46;
+    --surface-hover: #3f3f46;
+    --canvas-bg: #27272a;
+    --canvas-border: #3f3f46;
+    --canvas-grid: #d4d4d8;
+    --blackout-fill: #3f3f46;
+    --blackout-stroke: #52525b;
+    --handle-fill: #71717a;
+    --handle-stroke: #a1a1aa;
+    --warning: #f59e0b;
+  }
 }
 
 * {
@@ -32,7 +65,7 @@ body {
 .app header {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface);
 }
 
 .app header h1 {
@@ -112,7 +145,7 @@ body {
 }
 
 .controls-panel {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -210,7 +243,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 4px;
   cursor: pointer;
-  background: #fff;
+  background: var(--surface);
 }
 
 .controls-panel .color-value {
@@ -228,7 +261,7 @@ body {
 .warning {
   margin: -0.5rem 0 0;
   font-size: 0.8rem;
-  color: #b45309;
+  color: var(--warning);
 }
 
 .wall-canvas {
@@ -237,6 +270,33 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.wall-canvas .wall-bg {
+  fill: var(--canvas-bg);
+  stroke: var(--canvas-border);
+}
+
+.wall-canvas .measurement-grid {
+  stroke: var(--canvas-grid);
+}
+
+.wall-canvas .measurement-grid-labels {
+  fill: var(--canvas-grid);
+}
+
+.wall-canvas .dot-grid circle {
+  fill: var(--canvas-grid);
+}
+
+.wall-canvas .blackout-rect {
+  fill: var(--blackout-fill);
+  stroke: var(--blackout-stroke);
+}
+
+.wall-canvas .blackout-handle {
+  fill: var(--handle-fill);
+  stroke: var(--handle-stroke);
 }
 
 .table-section h3 {
@@ -249,7 +309,7 @@ body {
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
+  background: var(--surface);
 }
 
 .coordinates-table {
@@ -266,12 +326,12 @@ body {
 }
 
 .coordinates-table th {
-  background: #f5f5f5;
+  background: var(--surface-alt);
   font-weight: 600;
 }
 
 .coordinates-table tbody tr:hover {
-  background: #f9f9f9;
+  background: var(--surface-hover);
 }
 
 .coordinates-table td:nth-child(3),

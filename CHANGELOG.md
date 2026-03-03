@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - **Manual canvas resize**: Draggable handle at bottom-right corner to resize the canvas to fit your screen
 - **Measurement grid**: 20×20 cm cells with chess-style labels (columns A, B, C…; rows 1, 2, 3…)
 - **Measurement grid visibility**: Slider to show/hide the 20×20 cm grid (default 5%, matches dot grid)
+- **Dark mode**: Syncs with system preference (`prefers-color-scheme`)
 
 ### Changed
 
